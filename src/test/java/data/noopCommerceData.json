@@ -1,0 +1,22 @@
+{
+  "registrationData":{
+    "firstname":"Eslam",
+    "lastName":"Fawzy",
+    "mail":"eslam96@fawzy.com",
+    "password":"12345678",
+    "successMsg": "Your registration completed"
+  },
+  "registration": ["eslam", "fawzy", "eslam96@fawzy.com", "123456789"],
+  "loginData":{
+    "mail":"eslam96@fawzy.com",
+    "password":"12345678"
+  },
+  "changePassword":{
+    "password":"12345678",
+    "newPassword":"newPassword"
+  },
+  "products":{
+    "mac":"Apple MacBook Pro 13-inch",
+    "asus":"Asus N551JK-XO076H Laptop"
+  }
+}
