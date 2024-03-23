@@ -1,6 +1,7 @@
 package pages;
 
 import base.UIActions;
+import enums.Country;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

@@ -1,29 +1,27 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.ProductDetailsPage;
 import pages.SearchPage;
 import testSuits.BaseTest;
 
-public class ChangeCurrencyTest extends BaseTest
-{
+public class ChangeCurrencyTest extends BaseTest {
 	ProductDetailsPage detailsObject ;
-	String productName = "Apple MacBook Pro 13-inch"; 
 	SearchPage searchObject ;
 
 	@Test(priority=1)
 	public void UserCanCanChangeCurrency() {
 		homePage.changeCurrency();
 	}
-	
-	@Test(priority=2)
-	public void UserCanSearchWithAutoSuggest() 
+
+	@Test(priority=1, dataProvider = "auto Suggest", dataProviderClass = ExcelSheet.class)
+	public void UserCanSearchWithAutoSuggest(String productName, String partialProductName)
 	{
 		try {
 			searchObject = new SearchPage();
-			searchObject.ProductSearchUsingAutoSuggest("MacB");
+			searchObject.ProductSearchUsingAutoSuggest(partialProductName);
 			detailsObject = new ProductDetailsPage();
 			Assert.assertEquals(detailsObject.getProductName(), productName);
 			Assert.assertTrue(detailsObject.getProductPrice().contains("€"));
@@ -31,6 +29,5 @@ public class ChangeCurrencyTest extends BaseTest
 			System.out.println("Error occurred  " + e.getMessage());
 		}
 	}
-	
 	
 }

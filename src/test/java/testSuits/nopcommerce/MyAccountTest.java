@@ -2,10 +2,7 @@ package testSuits.nopcommerce;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.LoginPage;
 import pages.MyAccountPage;
-import pages.RegistrationPage;
 import testSuits.BaseTest;
 
 public class MyAccountTest extends BaseTest{

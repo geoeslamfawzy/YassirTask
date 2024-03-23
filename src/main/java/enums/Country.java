@@ -1,6 +1,6 @@
 package enums;
 
-public enum Nationality {
+public enum Country {
     American,
     Australian,
     Egyptian,

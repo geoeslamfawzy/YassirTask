@@ -1,5 +1,6 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,7 +16,6 @@ public class RegisteredUserCheckoutProductTest extends BaseTest{
 	 * 5- Logout 
 	 */
 
-	String productName = "Apple MacBook Pro 13-inch"; 
 	SearchPage searchObject ;
 	ProductDetailsPage detailsObject ;
 	ShoppingCartPage cartPage ; 
@@ -23,12 +23,12 @@ public class RegisteredUserCheckoutProductTest extends BaseTest{
 	OrderDetailsPage orderObject ;
 
 
-	@Test(priority=1)
-	public void UserCanSearchWithAutoSuggest() 
+	@Test(priority=1, dataProvider = "auto Suggest", dataProviderClass = ExcelSheet.class)
+	public void UserCanSearchWithAutoSuggest(String productName, String partialProductName)
 	{
 		try {
 			searchObject = new SearchPage();
-			searchObject.ProductSearchUsingAutoSuggest("MacB");
+			searchObject.ProductSearchUsingAutoSuggest(partialProductName);
 			detailsObject = new ProductDetailsPage();
 			Assert.assertEquals(detailsObject.getProductName(), productName);
 		} catch (Exception e) {
@@ -46,12 +46,13 @@ public class RegisteredUserCheckoutProductTest extends BaseTest{
 		Assert.assertTrue(cartPage.getTotalLabel().contains("3,600"));
 	}
 
-	@Test(priority=3)
-	public void UserCanCheckoutProduct() throws InterruptedException {
+	@Test(priority=3, dataProvider = "getCheckoutData", dataProviderClass = ExcelSheet.class)
+	public void UserCanCheckoutProduct(String countryName, String address, String postcode,
+									   String phone, String city, String productName) throws InterruptedException {
 		checkoutObject = new CheckoutPage();
 		cartPage.openCheckoutPage();
 		checkoutObject.RegisteredUserCheckoutProduct
-		("Egypt", "test address", "123456", "32445566677", "Cairo", productName);
+				(countryName, address, postcode, phone, city, productName);
 		Assert.assertTrue(checkoutObject.productName().isDisplayed());
 		Assert.assertTrue(checkoutObject.productName().getText().contains(productName));
 		Assert.assertTrue(checkoutObject.ThankYoulbl().isDisplayed());

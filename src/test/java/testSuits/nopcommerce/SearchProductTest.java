@@ -1,5 +1,6 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ProductDetailsPage;
@@ -7,12 +8,11 @@ import pages.SearchPage;
 import testSuits.BaseTest;
 
 public class SearchProductTest extends BaseTest{
-	String productName = "Apple MacBook Pro 13-inch"; 
 	SearchPage searchObject ;
 	ProductDetailsPage detailsObject ;
 	
-	@Test
-	public void UserCanSearchForProducts() 
+	@Test(dataProviderClass = ExcelSheet.class, dataProvider = "product name")
+	public void UserCanSearchForProducts(String productName)
 	{
 		searchObject  = new SearchPage();
 		detailsObject = new ProductDetailsPage();
@@ -20,5 +20,4 @@ public class SearchProductTest extends BaseTest{
 		searchObject.OpenProductDetailsPage();
 		Assert.assertEquals(detailsObject.getProductName(), productName);
 	}
-
 }

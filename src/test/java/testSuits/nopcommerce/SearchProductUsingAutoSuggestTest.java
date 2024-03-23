@@ -1,5 +1,6 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ProductDetailsPage;
@@ -7,16 +8,15 @@ import pages.SearchPage;
 import testSuits.BaseTest;
 
 public class SearchProductUsingAutoSuggestTest extends BaseTest{
-	String productName = "Apple MacBook Pro 13-inch"; 
 	SearchPage searchObject ;
 	ProductDetailsPage detailsObject ;
 	
-	@Test
-	public void UserCanSearchWithAutoSuggest() 
+	@Test(dataProviderClass = ExcelSheet.class, dataProvider = "auto Suggest")
+	public void UserCanSearchWithAutoSuggest(String productName, String partialNameOfProduct)
 	{
 		try {
 			searchObject = new SearchPage();
-			searchObject.ProductSearchUsingAutoSuggest("MacB");
+			searchObject.ProductSearchUsingAutoSuggest(partialNameOfProduct);
 			detailsObject = new ProductDetailsPage();
 			Assert.assertEquals(detailsObject.getProductName(), productName);
 		} catch (Exception e) {

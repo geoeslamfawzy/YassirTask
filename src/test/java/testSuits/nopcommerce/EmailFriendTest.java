@@ -1,25 +1,23 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 import testSuits.BaseTest;
 
-public class EmailFriendTest extends BaseTest
-{
-
-	String productName = "Apple MacBook Pro 13-inch"; 
+public class EmailFriendTest extends BaseTest {
 	SearchPage searchObject ;
 	ProductDetailsPage detailsObject ;
 	EmailPage emailObject ;
 
 	// 2- Search For Product
-	@Test(priority=1)
-	public void UserCanSearchWithAutoSuggest()
+	@Test(priority=1, dataProvider = "auto Suggest", dataProviderClass = ExcelSheet.class)
+	public void UserCanSearchWithAutoSuggest(String productName, String partialProductName)
 	{
 		try {
 			searchObject = new SearchPage();
-			detailsObject = searchObject.ProductSearchUsingAutoSuggest("MacB");
+			detailsObject = searchObject.ProductSearchUsingAutoSuggest(partialProductName);
 			Assert.assertEquals(detailsObject.getProductName(), productName);
 		} catch (Exception e) {
 			System.out.println("Error occurred  " + e.getMessage());
