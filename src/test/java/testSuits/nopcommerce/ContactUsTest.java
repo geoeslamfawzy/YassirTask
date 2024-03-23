@@ -1,5 +1,7 @@
 package testSuits.nopcommerce;
 
+import enums.EnumMapping;
+import enums.Messages;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
@@ -19,7 +21,7 @@ public class ContactUsTest extends BaseTest
 		contactPage = homePage.openContactUsPage();
 		contactPage.ContactUs(fullName, email, enquiry);
 		 Assert.assertTrue(contactPage.getSuccessMessage()
-				 .contains("Your enquiry has been successfully sent to the store owner."));
+				 .contains(EnumMapping.map(Messages.ContactUsSuccess)));
 	}
 
 }

@@ -1,6 +1,8 @@
 package testSuits.nopcommerce;
 
 import dataProvider.ExcelSheet;
+import enums.EnumMapping;
+import enums.Messages;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
@@ -29,7 +31,8 @@ public class EmailFriendTest extends BaseTest {
 	public void RegisteredUserCanSendProductToFriend() {
 		emailObject = detailsObject.openSendEmail();
 		emailObject.sendEmailToFriend("aaa@tte.com", "Hello my friend , check this product");
-		Assert.assertTrue(emailObject.getMessageNotification().contains("Your message has been sent."));
+		Assert.assertTrue(emailObject.getMessageNotification().
+				contains(EnumMapping.map(Messages.SentSuccess)));
 	}
 
 	

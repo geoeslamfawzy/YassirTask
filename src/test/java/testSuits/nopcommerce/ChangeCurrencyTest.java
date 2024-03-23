@@ -1,6 +1,8 @@
 package testSuits.nopcommerce;
 
 import dataProvider.ExcelSheet;
+import enums.Currency;
+import enums.EnumMapping;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ProductDetailsPage;
@@ -24,7 +26,7 @@ public class ChangeCurrencyTest extends BaseTest {
 			searchObject.ProductSearchUsingAutoSuggest(partialProductName);
 			detailsObject = new ProductDetailsPage();
 			Assert.assertEquals(detailsObject.getProductName(), productName);
-			Assert.assertTrue(detailsObject.getProductPrice().contains("€"));
+			Assert.assertTrue(detailsObject.getProductPrice().contains(EnumMapping.map(Currency.Euro)));
 		} catch (Exception e) {
 			System.out.println("Error occurred  " + e.getMessage());
 		}

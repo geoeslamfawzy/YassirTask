@@ -2,6 +2,8 @@ package testSuits.nopcommerce;
 
 import dataProvider.ExcelSheet;
 import driver.DriverManager;
+import enums.EnumMapping;
+import enums.Messages;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ProductDetailsPage;
@@ -32,7 +34,7 @@ public class AddProductToWishListTest extends BaseTest
 	@Test(priority=3)
 	public void UserCanRemoveProductFromCart() {
 		wishlistObject.removeProductFromWishlist();
-		Assert.assertTrue(wishlistObject.getEmptyCartLbl().contains("The wishlist is empty!"));
+		Assert.assertTrue(wishlistObject.getEmptyCartLbl().contains(EnumMapping.map(Messages.EmptyWishList)));
 	}
 
 }
