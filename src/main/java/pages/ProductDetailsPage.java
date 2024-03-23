@@ -25,9 +25,10 @@ public class ProductDetailsPage
 		ui.clickOn(addReviewLink);
 	}
 
-	public void AddProductToWishlist() 
-	{
+	public WishlistPage AddProductToWishlist() throws Exception {
 		ui.clickOn(addToWishlistBtn);
+		ui.navigateToWishlist();
+		return new WishlistPage();
 	}
 
 	public ProductDetailsPage AddProductToCompare() {
@@ -35,9 +36,10 @@ public class ProductDetailsPage
 		return this;
 	}
 
-	public void AddToCart() 
-	{
+	public ShoppingCartPage AddToCart() throws Exception {
 		ui.clickOn(addToCartBtn);
+		ui.navigateToCarts();
+		return new ShoppingCartPage();
 	}
 
 	public String getProductName(){

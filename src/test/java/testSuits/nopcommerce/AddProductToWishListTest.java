@@ -1,5 +1,6 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,20 +14,17 @@ public class AddProductToWishListTest extends BaseTest
 	SearchPage searchPage;
 	ProductDetailsPage productDetails;
 	WishlistPage wishlistObject;
-	String productName = "Apple MacBook Pro 13-inch";
 
-	@Test(priority=1)
-	public void UserCanSearchForProductsWithAutoSuggest() throws InterruptedException {
+	@Test(priority=1, dataProvider = "auto Suggest", dataProviderClass = ExcelSheet.class)
+	public void UserCanSearchWithAutoSuggest(String productName, String partialProductName) throws InterruptedException {
 		searchPage = new SearchPage();
-		productDetails = searchPage.ProductSearchUsingAutoSuggest("MacBo");
+		productDetails = searchPage.ProductSearchUsingAutoSuggest(partialProductName);
 		Assert.assertTrue(productDetails.getProductName().contains(productName));
 	}
 
-	@Test(priority=2)
-	public void UserCanAddProductToWishlist() throws InterruptedException {
-		productDetails.AddProductToWishlist();
-		DriverManager.getDriver().navigate().to("http://demo.nopcommerce.com" + "/wishlist");
-		wishlistObject = new WishlistPage();
+	@Test(priority=2,dataProvider = "product name", dataProviderClass = ExcelSheet.class)
+	public void UserCanAddProductToWishlist(String productName) throws Exception {
+		wishlistObject = productDetails.AddProductToWishlist();
 		Assert.assertTrue(wishlistObject.getWishlistHeader().isDisplayed());
 		Assert.assertTrue(wishlistObject.getProductCell().contains(productName));
 	}

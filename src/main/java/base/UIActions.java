@@ -2,8 +2,10 @@ package base;
 
 import constants.FrameworkConstants;
 import driver.DriverManager;
+import enums.ConfigProperties;
 import enums.WaitStrategy;
 import factories.ExplicitWaitFactory;
+import helpers.PropertyUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -101,5 +103,13 @@ public class UIActions {
         for (char c : text.toCharArray()) {
             element.sendKeys(Character.toString(c));
         }
+    }
+
+    public void navigateToWishlist() throws Exception {
+        DriverManager.getDriver().get(PropertyUtils.get(ConfigProperties.WishList));
+    }
+
+    public void navigateToCarts() throws Exception {
+        DriverManager.getDriver().get(PropertyUtils.get(ConfigProperties.Carts));
     }
 }

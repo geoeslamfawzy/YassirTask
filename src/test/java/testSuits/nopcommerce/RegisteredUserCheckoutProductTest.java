@@ -37,12 +37,9 @@ public class RegisteredUserCheckoutProductTest extends BaseTest{
 	}
 
 	@Test(priority=2)
-	public void UserCanAddProductToShoppingCart() throws InterruptedException {
+	public void UserCanAddProductToShoppingCart() throws Exception {
 		detailsObject = new ProductDetailsPage();
-		detailsObject.AddToCart();
-		Thread.sleep(1000);
-		DriverManager.getDriver().navigate().to("http://demo.nopcommerce.com" + "/cart");
-		cartPage = new ShoppingCartPage();
+		cartPage = detailsObject.AddToCart();
 		Assert.assertTrue(cartPage.getTotalLabel().contains("3,600"));
 	}
 

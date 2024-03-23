@@ -1,5 +1,6 @@
 package testSuits.nopcommerce;
 
+import dataProvider.ExcelSheet;
 import driver.DriverManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -8,25 +9,21 @@ import pages.SearchPage;
 import pages.ShoppingCartPage;
 import testSuits.BaseTest;
 
-public class AddProductToShoppingCartTest extends BaseTest
-{
+public class AddProductToShoppingCartTest extends BaseTest {
 	SearchPage searchPage;
 	ProductDetailsPage productDetails;
 	ShoppingCartPage cartPage ;
-	String productName = "Apple MacBook Pro 13-inch";
 
-	@Test(priority=1)
-	public void UserCanSearchForProductsWithAutoSuggest() throws InterruptedException {
+	@Test(priority=1, dataProvider = "auto Suggest", dataProviderClass = ExcelSheet.class)
+	public void UserCanSearchForProductsWithAutoSuggest(String productName, String partialProductName) throws InterruptedException {
 		searchPage = new SearchPage();
-		productDetails = searchPage.ProductSearchUsingAutoSuggest("MacB");
+		productDetails = searchPage.ProductSearchUsingAutoSuggest(partialProductName);
 		Assert.assertTrue(productDetails.getProductName().contains(productName));
 	}
 
 	@Test(priority=2)
-	public void UserCanAddProductToShoppingCart() throws InterruptedException {
-		productDetails.AddToCart();
-		DriverManager.getDriver().navigate().to("http://demo.nopcommerce.com" + "/cart");
-		cartPage = new ShoppingCartPage();
+	public void UserCanAddProductToShoppingCart() throws Exception {
+		cartPage = productDetails.AddToCart();
 		Assert.assertTrue(cartPage.getTotalLabel().contains("3,600"));
 	}
 
