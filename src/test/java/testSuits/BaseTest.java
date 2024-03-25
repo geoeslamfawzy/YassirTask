@@ -3,6 +3,7 @@ package testSuits;
 import driver.DriverActions;
 import driver.DriverManager;
 import helpers.ScreenshotHelper;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -10,9 +11,9 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.RegistrationPage;
 
-public class BaseTest {
+public class BaseTest extends AbstractTestNGCucumberTests {
     protected BaseTest(){}
-    protected HomePage homePage;
+    public static HomePage homePage;
     protected RegistrationPage registrationPage;
     protected LoginPage loginPage;
     protected static String email ;
